@@ -3,6 +3,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import Modelo
 import Vista
+import gettext
 class Handler():
 	def __init__(self):
 		self.modelo = Modelo.lista()
@@ -61,6 +62,7 @@ class Handler():
 			
 
 #----------MAIN----------
+
 handler = Handler()
 
 Gtk.main()

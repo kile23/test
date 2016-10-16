@@ -1,13 +1,15 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
+import gettext
+import locale
 
 class Dialogo_error(Gtk.Dialog):
     def __init__(self,parent):
-	Gtk.Dialog.__init__(self,"Error",parent,0,(Gtk.STOCK_OK, Gtk.ResponseType.OK))
+	Gtk.Dialog.__init__(self,_("Error"),parent,0,(Gtk.STOCK_OK, Gtk.ResponseType.OK))
 	self.set_modal(1)
 	self.set_default_size(150,100)
-	label = Gtk.Label("Se ha producido un error en la operacion")
+	label = Gtk.Label(_("Se ha producido un error en la operacion"))
 	box = self.get_content_area()
 	box.add(label)
 	self.show_all()
@@ -15,11 +17,11 @@ class Dialogo_error(Gtk.Dialog):
 
 class Dialogo_borrar(Gtk.Dialog):
     def __init__(self,parent):
-	Gtk.Dialog.__init__(self,"Confirmar borrado",parent,0,(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+	Gtk.Dialog.__init__(self,_("Confirmar borrado"),parent,0,(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OK, Gtk.ResponseType.OK))
 	self.set_modal(1)
 	self.set_default_size(150,100)
-	label = Gtk.Label("Seguro que quieres borrar la pelicula")
+	label = Gtk.Label(_("Seguro que quieres borrar la pelicula"))
 	box = self.get_content_area()
 	box.add(label)
 	self.show_all()
@@ -27,26 +29,26 @@ class Dialogo_borrar(Gtk.Dialog):
 
 class Dialogo_agregar(Gtk.Dialog):
     def __init__(self,parent):
-	Gtk.Dialog.__init__(self,"Agregar pelicula",parent,0,(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+	Gtk.Dialog.__init__(self,_("Agregar pelicula"),parent,0,(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OK, Gtk.ResponseType.OK))
 	self.set_modal(1)
 	self.set_default_size(150,100)
-	label = Gtk.Label("Inserte los datos de la pelicula")
+	label = Gtk.Label(_("Inserte los datos de la pelicula"))
 	box = self.get_content_area()
 	box.add(label)
 	
 	self.titulo = Gtk.Entry()
-	self.titulo.set_text("Titulo...")
+	self.titulo.set_text(_("Titulo..."))
 	self.titulo.set_editable(1)
 	box.add(self.titulo)
 	
 	self.genero = Gtk.Entry()
-	self.genero.set_text("Genero...")
+	self.genero.set_text(_("Genero..."))
 	self.genero.set_editable(1)
 	box.add(self.genero)
 
 	self.estado = Gtk.Entry()
-	self.estado.set_text("Estado...")
+	self.estado.set_text(_("Estado..."))
 	self.estado.set_editable(1)
 	box.add(self.estado)
 	self.show_all()
@@ -54,11 +56,11 @@ class Dialogo_agregar(Gtk.Dialog):
 
 class Dialogo_editar(Gtk.Dialog):
     def __init__(self,parent,ntitulo,ngenero,nestado):
-	Gtk.Dialog.__init__(self,"Editar pelicula",parent,0,(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+	Gtk.Dialog.__init__(self,_("Editar pelicula"),parent,0,(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OK, Gtk.ResponseType.OK))
 	self.set_modal(1)
 	self.set_default_size(150,100)
-	label = Gtk.Label("Inserte los datos de la pelicula")
+	label = Gtk.Label(_("Inserte los datos de la pelicula"))
 	box = self.get_content_area()
 	box.add(label)
 	
@@ -81,7 +83,8 @@ class Dialogo_editar(Gtk.Dialog):
 
 class peliculas(Gtk.Window):
     def __init__(self,handler):
-        Gtk.Window.__init__(self, title="Peliculas")
+
+        Gtk.Window.__init__(self, title=_("Peliculas"))
         self.set_border_width(10)
 	self.handler = handler
 
@@ -100,15 +103,15 @@ class peliculas(Gtk.Window):
 
 	#Botones de Agregar,Borrar y Editar
         self.buttons = list()        
-	button = Gtk.Button("Agregar")
+	button = Gtk.Button(_("Agregar"))
         self.buttons.append(button)
         button.connect("clicked", self.handler.Agregar)
 
-	button = Gtk.Button("Borrar")
+	button = Gtk.Button(_("Borrar"))
         self.buttons.append(button)
         button.connect("clicked", self.handler.Borrar)
 
-	button = Gtk.Button("Editar")
+	button = Gtk.Button(_("Editar"))
         self.buttons.append(button)
         button.connect("clicked", self.handler.Editar)
 	
@@ -125,7 +128,7 @@ class peliculas(Gtk.Window):
 
 
     def create_columns(self, treeview):
-	 for i, column_title in enumerate(["Titulo", "Genero", "Estado"]):
+	 for i, column_title in enumerate([ _("Titulo") , _("Genero") , _("Estado") ]):
             renderer = Gtk.CellRendererText()
             column = Gtk.TreeViewColumn(column_title, renderer, text=i)
             self.treeview.append_column(column)
@@ -188,3 +191,13 @@ class peliculas(Gtk.Window):
 		diag.destroy()
 	else:
 		diag.destroy()
+
+#Traduccion-----
+APP_NAME = "messages"
+LOCALE_DIR="./locale"
+gettext.bindtextdomain(APP_NAME, LOCALE_DIR)
+locale.bindtextdomain(APP_NAME, LOCALE_DIR)
+gettext.textdomain(APP_NAME)
+locale.setlocale(locale.LC_ALL, '')
+_ = gettext.gettext
+

@@ -7,6 +7,7 @@ class lista():
 		self.peliculas = json.load(self.data) 
 
 	def Actualizar(self):
+		#print("Actualizando lista de peliculas...")
 		self.data = open('peliculas.json')
 		self.peliculas = json.load(self.data)
 
