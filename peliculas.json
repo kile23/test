@@ -1,0 +1,32 @@
+[
+{
+"Estado": "Pendiente",
+"Genero": "Accion",
+"Titulo": "Batman V Superman"
+},
+{
+"Estado": "Pendiente",
+"Genero": "Drama",
+"Titulo": "La Chica Danesa"
+},
+{
+"Estado": "Vista",
+"Genero": "Aventura",
+"Titulo": "El Renacido"
+},
+{
+"Estado": "Pendiente",
+"Genero": "Drama",
+"Titulo": "La Habitacion"
+},
+{
+"Estado": "Vista",
+"Genero": "Western",
+"Titulo": "Los Odiosos Ocho"
+},
+{
+"Estado": "Vista",
+"Genero": "Accion",
+"Titulo": "Escuadron Suicida"
+}
+]
